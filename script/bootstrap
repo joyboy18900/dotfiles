@@ -1,0 +1,137 @@
+#!/usr/bin/env bash
+#
+# bootstrap — Set up dotfiles on a new machine.
+#
+# This script:
+#   1. Installs Homebrew (if not present)
+#   2. Installs all dependencies via Brewfile
+#   3. Creates symlinks from this repo to system config paths
+#   4. Installs Fisher plugins (Tide, etc.)
+#
+# Usage:
+#   cd ~/Workspaces/dotfiles
+#   script/bootstrap
+#
+
+set -e
+
+# ─── Helpers ─────────────────────────────────────────────────────────────
+
+DOTFILES_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+info()    { printf "\r  [ \033[00;34m..\033[0m ] %s\n" "$1"; }
+success() { printf "\r  [ \033[00;32mOK\033[0m ] %s\n" "$1"; }
+warn()    { printf "\r  [ \033[00;33m!!\033[0m ] %s\n" "$1"; }
+fail()    { printf "\r  [\033[00;31mFAIL\033[0m] %s\n" "$1"; exit 1; }
+
+# ─── Symlink with Backup ────────────────────────────────────────────────
+
+link_file() {
+    local src="$1" dst="$2"
+
+    # If destination already points to the correct source, skip
+    if [ -L "$dst" ] && [ "$(readlink "$dst")" = "$src" ]; then
+        success "already linked $(basename "$dst")"
+        return
+    fi
+
+    # Back up existing file/symlink
+    if [ -f "$dst" ] || [ -d "$dst" ] || [ -L "$dst" ]; then
+        mv "$dst" "${dst}.backup"
+        warn "backed up $(basename "$dst") → $(basename "$dst").backup"
+    fi
+
+    # Ensure parent directory exists
+    mkdir -p "$(dirname "$dst")"
+
+    ln -s "$src" "$dst"
+    success "linked $(basename "$dst") → $src"
+}
+
+# ─── Step 1: Homebrew ───────────────────────────────────────────────────
+
+install_homebrew() {
+    if command -v brew &>/dev/null; then
+        success "Homebrew already installed"
+    else
+        info "Installing Homebrew..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        # Add Homebrew to PATH for Apple Silicon
+        if [ -f /opt/homebrew/bin/brew ]; then
+            eval "$(/opt/homebrew/bin/brew shellenv)"
+        fi
+        success "Homebrew installed"
+    fi
+}
+
+# ─── Step 2: Brew Bundle ────────────────────────────────────────────────
+
+install_deps() {
+    local brewfile="$DOTFILES_ROOT/homebrew/Brewfile"
+    if [ -f "$brewfile" ]; then
+        info "Installing Homebrew dependencies from Brewfile..."
+        brew bundle --file="$brewfile" --no-lock
+        success "Homebrew dependencies installed"
+    else
+        warn "No Brewfile found at $brewfile — skipping"
+    fi
+}
+
+# ─── Step 3: Symlinks ───────────────────────────────────────────────────
+
+create_symlinks() {
+    info "Creating symlinks..."
+
+    # Fish Shell
+    link_file "$DOTFILES_ROOT/fish/config.fish"     "$HOME/.config/fish/config.fish"
+    link_file "$DOTFILES_ROOT/fish/fish_plugins"    "$HOME/.config/fish/fish_plugins"
+
+    # WezTerm
+    link_file "$DOTFILES_ROOT/wezterm/wezterm.lua"  "$HOME/.wezterm.lua"
+
+    # Git
+    link_file "$DOTFILES_ROOT/git/gitconfig"        "$HOME/.gitconfig"
+    link_file "$DOTFILES_ROOT/git/gitignore_global" "$HOME/.config/git/ignore"
+
+    # GitHub CLI
+    link_file "$DOTFILES_ROOT/gh/config.yml"        "$HOME/.config/gh/config.yml"
+
+    success "All symlinks created"
+}
+
+# ─── Step 4: Fisher Plugins ─────────────────────────────────────────────
+
+install_fisher_plugins() {
+    if command -v fish &>/dev/null; then
+        info "Installing Fisher plugins..."
+        fish -c "
+            if not functions -q fisher
+                curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
+                fisher install jorgebucaran/fisher
+            end
+            fisher update
+        " 2>/dev/null
+        success "Fisher plugins installed"
+    else
+        warn "Fish shell not found — skipping Fisher plugin installation"
+        warn "Run 'brew install fish' first, then re-run this script"
+    fi
+}
+
+# ─── Main ────────────────────────────────────────────────────────────────
+
+echo ""
+echo "  🐟 dotfiles — bootstrap"
+echo "  ════════════════════════"
+echo ""
+echo "  DOTFILES_ROOT: $DOTFILES_ROOT"
+echo ""
+
+install_homebrew
+install_deps
+create_symlinks
+install_fisher_plugins
+
+echo ""
+success "All done! Restart your terminal to apply changes."
+echo ""

@@ -1,0 +1,39 @@
+# ─── config.local.fish ───────────────────────────────────────────────────
+# Machine-specific Fish configuration.
+# This file is sourced by config.fish but is .gitignored.
+#
+# Copy this file to: ~/.config/fish/config.local.fish
+# and fill in your actual values.
+#
+# Usage:
+#   cp config.local.fish.example ~/.config/fish/config.local.fish
+#   nvim ~/.config/fish/config.local.fish
+# ─────────────────────────────────────────────────────────────────────────
+
+# ─── API Keys & Tokens ──────────────────────────────────────────────────
+
+# OpenAI
+# set -gx OPENAI_API_KEY "sk-..."
+
+# Anthropic (Claude)
+# set -gx ANTHROPIC_API_KEY "sk-ant-..."
+
+# GitHub Personal Access Token
+# set -gx GITHUB_TOKEN "ghp_..."
+
+# Cloudflare
+# set -gx CLOUDFLARE_API_TOKEN "..."
+
+# ─── Machine-Specific Settings ──────────────────────────────────────────
+
+# Work-specific git email override
+# set -gx GIT_AUTHOR_EMAIL "your.work@company.com"
+# set -gx GIT_COMMITTER_EMAIL "your.work@company.com"
+
+# Custom workspace path
+# set -gx WORKSPACE "$HOME/Work"
+
+# ─── Extra PATHs ────────────────────────────────────────────────────────
+
+# Add machine-specific paths here
+# fish_add_path "$HOME/.some-tool/bin"

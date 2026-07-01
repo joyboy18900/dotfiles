@@ -1,0 +1,16 @@
+[user]
+	name = joyboy18900
+	email = surakiat.dev@gmail.com
+
+[core]
+	excludesfile = ~/.config/git/ignore
+
+[include]
+	path = ~/.gitconfig.local
+
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+	lg = log --oneline --graph --decorate

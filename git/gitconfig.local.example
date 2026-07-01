@@ -1,0 +1,6 @@
+# Machine-specific Git configuration
+# Copy this to ~/.gitconfig.local
+
+[user]
+	# Override email for work machines
+	# email = your.work@company.com
