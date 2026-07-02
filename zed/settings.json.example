@@ -1,0 +1,174 @@
+{
+	"collaboration_panel": {
+		"dock": "left",
+	},
+	"git_panel": {
+		"dock": "left",
+		"tree_view": true,
+	},
+	"language_models": {
+		"openai_compatible": {
+			"Z.ai": {
+				"api_url": "https://api.z.ai/api/coding/paas/v4",
+				"available_models": [
+					{
+						"name": "glm-4.7",
+						"display_name": "GLM-4.7",
+						"max_tokens": 200000,
+						"max_output_tokens": 128000,
+						"capabilities": {
+							"tools": true,
+							"images": false,
+							"parallel_tool_calls": true,
+							"prompt_cache_key": true,
+						},
+					},
+				],
+			},
+		},
+	},
+	"disable_ai": false,
+	"agent": {
+		"favorite_models": [
+			{
+				"provider": "copilot_chat",
+				"model": "gpt-5-mini",
+				"enable_thinking": true,
+				"effort": "high"
+			}
+		],
+		"tool_permissions": {
+			"default": "allow",
+		},
+		"notify_when_agent_waiting": "never",
+		"default_profile": "write",
+		"default_model": {
+			"enable_thinking": true,
+			"provider": "ollama",
+			"model": "qwen3.5:9b-mlx",
+		},
+		"dock": "right",
+		"button": true,
+	},
+	"context_servers": {
+		"mcp-server-github": {
+			"enabled": true,
+			"remote": false,
+			"settings": {},
+		},
+		"mcp-server-sequential-thinking": {
+			"enabled": false,
+			"remote": false,
+			"settings": {},
+		},
+		"mcp-server-context7": {
+			"enabled": false,
+			"remote": false,
+			"settings": {},
+		},
+		"mcp-server-puppeteer": {
+			"enabled": false,
+			"remote": false,
+			"settings": {},
+		},
+		"mcp-server-supabase": {
+			"enabled": false,
+			"settings": {
+				"supabase_access_token": "YOUR_SUPABASE_ACCESS_TOKEN",
+				"read_only": false,
+			},
+		},
+		"postgres-context-server": {
+			"enabled": false,
+			"settings": {
+				"database_url": "YOUR_DATABASE_URL",
+			},
+		},
+	},
+	"auto_indent_on_paste": true,
+	"base_keymap": "VSCode",
+	"buffer_font_size": 14,
+	"current_line_highlight": "all",
+	"edit_predictions": {
+		"provider": "zed",
+		"mode": "subtle",
+	},
+	"file_types": {
+		"makefile": [".env*"],
+	},
+	"file_scan_inclusions": [".env", "query.log"],
+	"format_on_save": "on",
+	"gutter": {
+		"line_numbers": true,
+		"breakpoints": true,
+	},
+	"hard_tabs": true,
+	"icon_theme": "Material Icon Theme",
+	"languages": {},
+	"lsp": {
+		"discord_presence": {
+			"initialization_options": {
+				"application_id": "1263505205522337886",
+				"state": "Im still cooking on {filename}",
+				"details": "Hustle in {workspace}",
+				"idle": {
+					"timeout": 300,
+					"action": "change_activity",
+					"state": "Idling",
+					"details": "In Zed",
+					"large_image": "{base_icons_url}/zed.png",
+					"small_image": "{base_icons_url}/idle.png",
+					"small_text": "Idle",
+				},
+				"rules": {
+					"mode": "blacklist",
+					"paths": [],
+				},
+				"git_integration": true,
+				"languages": {
+					"rust": {
+						"state": "Hacking on {filename}",
+						"details": "Rustacean at work",
+					},
+				},
+			},
+		},
+	},
+	"minimap": {
+		"show": "always",
+	},
+	"outline_panel": {
+		"button": false,
+		"dock": "right",
+	},
+	"preview_tabs": {
+		"enabled": false,
+	},
+	"project_panel": {
+		"dock": "left",
+		"auto_fold_dirs": false,
+	},
+	"restore_on_file_reopen": true,
+	"scroll_beyond_last_line": "one_page",
+	"search": { "button": false },
+	"seed_search_query_from_cursor": "selection",
+	"show_edit_predictions": true,
+	"show_whitespaces": "none",
+	"tab_size": 2,
+	"terminal": {
+		"font_family": "Hack Nerd Font Mono",
+		"copy_on_select": true,
+		"dock": "bottom",
+		"button": false,
+		"default_width": 200,
+		"line_height": { "custom": 1.0 },
+	},
+	"theme": {
+		"mode": "system",
+		"light": "Ayu Dark",
+		"dark": "Chocolate Dark (Blurred)",
+	},
+	"ui_font_size": 16,
+	"use_on_type_format": true,
+	"notification_panel": { "button": false },
+}

@@ -4,6 +4,7 @@ if status is-interactive
 end
 
 set -gx SHELL /opt/homebrew/bin/fish
+set -gx EDITOR zed
 
 alias handsomeboy="echo tarbandoo"
 alias fish_file_config="cd ~/.config/fish"
