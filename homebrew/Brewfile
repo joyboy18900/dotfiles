@@ -64,7 +64,6 @@ cask "capcut"
 cask "google-chrome"
 cask "discord"
 cask "telegram"
-cask "line"
 
 # Productivity & Notes
 cask "notion"
