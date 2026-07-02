@@ -74,7 +74,6 @@ cask "obsidian"
 # System Utilities & Misc
 cask "betterdisplay"
 cask "batfi"
-cask "maccy"
 cask "pearcleaner"
 cask "filezilla"
 cask "vlc"
