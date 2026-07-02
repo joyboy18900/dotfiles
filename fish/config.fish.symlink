@@ -1,3 +1,8 @@
+if status is-interactive
+    set -g fish_color_command 4ade80
+    set -g fish_color_error ff5555
+end
+
 set -gx SHELL /opt/homebrew/bin/fish
 
 set -l dotfiles (dirname (dirname (realpath (status filename))))
