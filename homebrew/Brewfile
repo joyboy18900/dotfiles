@@ -1,45 +1,83 @@
-# Taps
-# Deprecated core taps removed
+# ─── Terminal & CLI Tools (Formulae) ─────────────
 
-# Formulae
-brew "btop"
-brew "clang-format"
-brew "cloudflared"
-brew "cmake"
-brew "cocoapods"
-brew "docker-compose"
-brew "fastfetch"
+# Shell & Prompt
 brew "fish"
 brew "fisher"
+
+# CLI Utilities & System Tools
 brew "gh"
-brew "go"
+brew "btop"
+brew "fastfetch"
+brew "docker-compose"
+brew "cloudflared"
 brew "k6"
-brew "maven"
-brew "neovim"
+brew "redis"
+
+# JavaScript / TypeScript
 brew "node"
 brew "pnpm"
+brew "vite"
+brew "typescript"
+
+# Python
 brew "python@3.13"
-brew "redis"
+brew "uv"
+
+# Other Languages & Build Tools
+brew "go"
 brew "rustup"
-# brew "starship" # Removed in favor of Tide
+brew "maven"
+
+# Editor & Terminal Environment
+brew "vim"
 brew "tmux"
 brew "tpm"
-brew "typescript"
-brew "uv"
-brew "vim"
-brew "vite"
-brew "zsh"
 
-# Casks
-cask "android-studio"
-cask "antigravity-cli"
-cask "betterdisplay"
-cask "claude-code"
-cask "docker"
-cask "docker-desktop"
-cask "flutter"
-cask "font-hack-nerd-font"
-cask "font-jetbrains-mono-nerd-font"
-cask "maccy"
-cask "pearcleaner"
+
+# ─── GUI Applications & Fonts (Casks) ─────────────
+
+# AI & LLM Tools
+cask "claude"
+cask "google-gemini"
+cask "ollama"
+
+# IDEs & Code Editors
+cask "visual-studio-code"
+cask "zed"
+cask "intellij-idea"
+cask "pycharm-ce"
+
+# Database & API Tools
+cask "dbeaver-community"
+cask "postman"
+
+# Terminals & Dev Infrastructure
 cask "wezterm"
+cask "docker-desktop"
+
+# Design, Media & Content Creation
+cask "figma"
+cask "canva"
+cask "capcut"
+
+# Communication & Browsers
+cask "google-chrome"
+cask "discord"
+cask "telegram"
+cask "line"
+
+# Productivity & Notes
+cask "notion"
+cask "obsidian"
+
+# System Utilities & Misc
+cask "betterdisplay"
+cask "batfi"
+cask "pearcleaner"
+cask "filezilla"
+cask "vlc"
+cask "spotify"
+
+# Fonts
+cask "font-jetbrains-mono-nerd-font"
+cask "font-hack-nerd-font"
