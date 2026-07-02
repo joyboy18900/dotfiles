@@ -3,7 +3,7 @@
 	email = surakiat.dev@gmail.com
 
 [core]
-	excludesfile = ~/.config/git/ignore
+	excludesfile = ~/.gitignore_global
 
 [include]
 	path = ~/.gitconfig.local

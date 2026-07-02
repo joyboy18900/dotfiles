@@ -1,0 +1,20 @@
+if status is-interactive
+    set -g fish_color_command 4ade80
+    set -g fish_color_error 38bdf8
+end
+
+set -gx SHELL /opt/homebrew/bin/fish
+
+alias handsomeboy="echo tarbandoo"
+alias fish_file_config="cd ~/.config/fish"
+alias workspace="cd ~/Workspaces"
+alias tmn="tmux new -s"
+alias tma="tmux a -t"
+
+fish_add_path "$HOME/.codeium/windsurf/bin"
+fish_add_path "$HOME/.antigravity/antigravity/bin"
+fish_add_path "$HOME/.local/bin"
+
+if test -f ~/.config/fish/config.local.fish
+    source ~/.config/fish/config.local.fish
+end
