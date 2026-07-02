@@ -73,7 +73,6 @@ cask "obsidian"
 cask "betterdisplay"
 cask "batfi"
 cask "pearcleaner"
-cask "filezilla"
 cask "vlc"
 cask "spotify"
 
