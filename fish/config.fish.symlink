@@ -5,8 +5,9 @@ end
 
 set -gx SHELL /opt/homebrew/bin/fish
 
-if test -f ~/.env.fish
-    source ~/.env.fish
+set -l dotfiles (dirname (dirname (realpath (status filename))))
+for f in $dotfiles/*/*.fish
+    source $f
 end
 
 alias handsomeboy="echo tarbandoo"
