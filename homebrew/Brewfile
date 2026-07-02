@@ -64,6 +64,7 @@ cask "capcut"
 cask "google-chrome"
 cask "discord"
 cask "telegram"
+cask "line"
 
 # Productivity & Notes
 cask "notion"
@@ -73,6 +74,7 @@ cask "obsidian"
 cask "betterdisplay"
 cask "batfi"
 cask "pearcleaner"
+cask "filezilla"
 cask "vlc"
 cask "spotify"
 
