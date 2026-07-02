@@ -70,7 +70,7 @@ install_deps() {
     local brewfile="$DOTFILES_ROOT/homebrew/Brewfile"
     if [ -f "$brewfile" ]; then
         info "Installing Homebrew dependencies from Brewfile..."
-        brew bundle --file="$brewfile" --no-lock
+        brew bundle --file="$brewfile"
         success "Homebrew dependencies installed"
     else
         warn "No Brewfile found at $brewfile — skipping"
