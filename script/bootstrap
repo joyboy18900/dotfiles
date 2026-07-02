@@ -29,23 +29,13 @@ create_symlinks() {
     find "$DOTFILES_ROOT" -name "*.symlink" | while read -r src; do
         topic="$(basename "$(dirname "$src")")"
         filename="$(basename "$src" .symlink)"
-        if [[ "$filename" != .* ]]; then
-            dst="$HOME/.config/$topic/$filename"
+        if [ "$topic" = "fish" ]; then
+            dst="$HOME/.config/fish/$filename"
         else
             dst="$HOME/$filename"
         fi
         link_file "$src" "$dst"
     done
-}
-
-setup_zed() {
-    local zed_settings="$HOME/.config/zed/settings.json"
-    local example="$DOTFILES_ROOT/zed/settings.json.example"
-    if [ ! -f "$zed_settings" ] && [ -f "$example" ]; then
-        mkdir -p "$HOME/.config/zed"
-        cp "$example" "$zed_settings"
-        echo "copied zed/settings.json.example → ~/.config/zed/settings.json (fill in your secrets)"
-    fi
 }
 
 install_fisher_plugins() {
@@ -62,5 +52,4 @@ install_fisher_plugins() {
 install_homebrew
 install_deps
 create_symlinks
-setup_zed
 install_fisher_plugins

@@ -7,7 +7,6 @@
 *.local
 *.local.fish
 fish_variables
-zed/settings.json
 
 fish/conf.d/
 fish/functions/
