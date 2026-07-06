@@ -31,6 +31,8 @@ create_symlinks() {
         filename="$(basename "$src" .symlink)"
         if [ "$topic" = "fish" ]; then
             dst="$HOME/.config/fish/$filename"
+        elif [ "$topic" = "gh" ]; then
+            dst="$HOME/.config/gh/$filename"
         else
             dst="$HOME/$filename"
         fi
