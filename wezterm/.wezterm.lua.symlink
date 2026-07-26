@@ -6,7 +6,11 @@ if wezterm.config_builder then
 end
 
 config.color_scheme = 'Tokyo Night'
-config.font = wezterm.font 'JetBrains Mono'
+config.font = wezterm.font_with_fallback {
+  'JetBrains Mono',
+  'Thonburi',
+}
+config.front_end = 'WebGpu'
 config.font_size = 13.0
 config.window_decorations = "TITLE | RESIZE"
 config.enable_tab_bar = false
