@@ -35,7 +35,6 @@ brew "maven"
 # Editor & Terminal Environment
 brew "vim"
 brew "tmux"
-brew "tpm"
 
 
 # ─── GUI Applications & Fonts (Casks) ─────────────

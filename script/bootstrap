@@ -61,9 +61,26 @@ install_fisher_plugins() {
     " 2>/dev/null
 }
 
+install_tmux_plugins() {
+    command -v tmux &>/dev/null || return
+    local tpm_dir="$HOME/.tmux/plugins/tpm"
+    [ -d "$tpm_dir" ] || git clone --depth 1 https://github.com/tmux-plugins/tpm "$tpm_dir"
+    [ -x "$tpm_dir/bin/install_plugins" ] && "$tpm_dir/bin/install_plugins" || echo "Warning: tmux plugin install failed, continuing…"
+}
+
+set_default_shell() {
+    local fish_path="/opt/homebrew/bin/fish"
+    [ -x "$fish_path" ] || return
+    "$fish_path" -c 'true' || { echo "Warning: fish check failed, not changing login shell"; return; }
+    grep -qxF "$fish_path" /etc/shells || echo "$fish_path" | sudo tee -a /etc/shells >/dev/null
+    [ "$SHELL" = "$fish_path" ] || chsh -s "$fish_path"
+}
+
 install_homebrew
 install_deps
 install_npm_globals
 install_uv_tools
 create_symlinks
 install_fisher_plugins
+install_tmux_plugins
+set_default_shell
