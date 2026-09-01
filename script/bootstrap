@@ -22,7 +22,7 @@ install_homebrew() {
 
 install_deps() {
     local brewfile="$DOTFILES_ROOT/homebrew/Brewfile"
-    [ -f "$brewfile" ] && brew bundle --file="$brewfile" || echo "Warning: some brew packages could not be installed, continuing…"
+    [ -f "$brewfile" ] && brew bundle --adopt --file="$brewfile" || echo "Warning: some brew packages could not be installed, continuing…"
 }
 
 install_npm_globals() {
