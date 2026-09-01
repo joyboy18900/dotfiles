@@ -25,14 +25,22 @@ install_deps() {
     [ -f "$brewfile" ] && brew bundle --adopt --file="$brewfile" || echo "Warning: some brew packages could not be installed, continuing…"
 }
 
+# Runs a command only if its tool is on PATH, and never lets its failure
+# abort the rest of bootstrap. Every optional install step goes through
+# this one place instead of repeating the guard itself.
+run_if_available() {
+    local tool="$1" description="$2"
+    shift 2
+    command -v "$tool" &>/dev/null || return 0
+    "$@" || echo "Warning: $description failed, continuing…"
+}
+
 install_npm_globals() {
-    command -v npm &>/dev/null || return 0
-    npm install -g @deepseek-ai/dsh || echo "Warning: npm global install failed, continuing…"
+    run_if_available npm "npm global install" npm install -g @deepseek-ai/dsh
 }
 
 install_uv_tools() {
-    command -v uv &>/dev/null || return 0
-    uv tool install git+https://github.com/github/spec-kit.git || echo "Warning: uv tool install failed, continuing…"
+    run_if_available uv "uv tool install" uv tool install git+https://github.com/github/spec-kit.git
 }
 
 create_symlinks() {
@@ -51,14 +59,13 @@ create_symlinks() {
 }
 
 install_fisher_plugins() {
-    command -v fish &>/dev/null || return 0
-    fish -c "
+    run_if_available fish "fisher plugin install" fish -c "
         if not functions -q fisher
             curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
             fisher install jorgebucaran/fisher
         end
         fisher update
-    " 2>/dev/null || echo "Warning: fisher plugin install failed, continuing…"
+    "
 }
 
 install_tmux_plugins() {
