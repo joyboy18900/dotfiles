@@ -58,7 +58,7 @@ install_fisher_plugins() {
             fisher install jorgebucaran/fisher
         end
         fisher update
-    " 2>/dev/null
+    " 2>/dev/null || echo "Warning: fisher plugin install failed, continuing…"
 }
 
 install_tmux_plugins() {
