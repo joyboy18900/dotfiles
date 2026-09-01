@@ -1,0 +1,99 @@
+#!/usr/bin/env bash
+# Regression tests for script/bootstrap.
+# Proves that a missing optional tool (or a failing optional step) never
+# aborts the rest of bootstrap. Run directly: script/test
+
+set -u
+DOTFILES_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+BOOTSTRAP="$DOTFILES_ROOT/script/bootstrap"
+
+pass=0
+fail=0
+
+# Resolve bash's real path up front: once PATH is overridden below to
+# simulate a missing tool, a bare "bash" would no longer resolve either.
+real_bash="$(command -v bash)"
+
+# Base PATH covers the plain system utilities bootstrap itself needs
+# (dirname, mkdir, ln, grep, git, sudo, chsh, ...) without homebrew's bin
+# dirs, so homebrew-only tools (npm, uv, fish, tmux) count as "missing".
+base_path="/usr/bin:/bin:/usr/sbin:/sbin"
+
+# Runs "$@" in a clean subshell with an isolated PATH/HOME and set -e active,
+# the same way bootstrap itself runs. fake_path (a dir of stub executables)
+# is prepended so it wins over the base PATH. Prints "MARKER_OK" only if the
+# call returned without aborting the subshell.
+run_isolated() {
+    local fake_path="$1" fake_home="$2"
+    shift 2
+    PATH="$fake_path:$base_path" HOME="$fake_home" "$real_bash" -c "
+        set -e
+        source '$BOOTSTRAP'
+        $*
+        echo MARKER_OK
+    " 2>&1
+}
+
+assert_survives() {
+    local name="$1" fake_path="$2" fake_home="$3" call="$4"
+    local out
+    out="$(run_isolated "$fake_path" "$fake_home" "$call")"
+    if echo "$out" | grep -q "MARKER_OK"; then
+        echo "ok   - $name"
+        pass=$((pass + 1))
+    else
+        echo "FAIL - $name (bootstrap step aborted the script)"
+        echo "$out" | sed 's/^/       /'
+        fail=$((fail + 1))
+    fi
+}
+
+empty_path="$(mktemp -d)"
+
+# --- guard functions must not abort when their tool is missing ---
+for fn in install_npm_globals install_uv_tools install_fisher_plugins install_tmux_plugins; do
+    tmp_home="$(mktemp -d)"
+    assert_survives "$fn survives a missing tool" "$empty_path" "$tmp_home" "$fn"
+done
+
+# --- tmux plugin install must not abort when the tpm clone fails ---
+tool_bin="$(mktemp -d)"
+cat >"$tool_bin/tmux" <<'EOF'
+#!/bin/bash
+exit 0
+EOF
+cat >"$tool_bin/git" <<'EOF'
+#!/bin/bash
+exit 1
+EOF
+chmod +x "$tool_bin/tmux" "$tool_bin/git"
+tmp_home="$(mktemp -d)"
+assert_survives "install_tmux_plugins survives a failed tpm clone" "$tool_bin" "$tmp_home" "install_tmux_plugins"
+
+# --- set_default_shell must not abort when /etc/shells or chsh fail ---
+shell_bin="$(mktemp -d)"
+cat >"$shell_bin/fish" <<'EOF'
+#!/bin/bash
+[ "$1" = "-c" ] && exit 0
+exit 1
+EOF
+cat >"$shell_bin/grep" <<'EOF'
+#!/bin/bash
+exit 1
+EOF
+cat >"$shell_bin/sudo" <<'EOF'
+#!/bin/bash
+exit 1
+EOF
+cat >"$shell_bin/chsh" <<'EOF'
+#!/bin/bash
+exit 1
+EOF
+chmod +x "$shell_bin"/*
+tmp_home="$(mktemp -d)"
+assert_survives "set_default_shell survives a failed /etc/shells write and chsh" \
+    "$shell_bin" "$tmp_home" "set_default_shell '$shell_bin/fish'"
+
+echo
+echo "$pass passed, $fail failed"
+[ "$fail" -eq 0 ]

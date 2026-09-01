@@ -26,12 +26,12 @@ install_deps() {
 }
 
 install_npm_globals() {
-    command -v npm &>/dev/null || return
+    command -v npm &>/dev/null || return 0
     npm install -g @deepseek-ai/dsh || echo "Warning: npm global install failed, continuing…"
 }
 
 install_uv_tools() {
-    command -v uv &>/dev/null || return
+    command -v uv &>/dev/null || return 0
     uv tool install git+https://github.com/github/spec-kit.git || echo "Warning: uv tool install failed, continuing…"
 }
 
@@ -51,7 +51,7 @@ create_symlinks() {
 }
 
 install_fisher_plugins() {
-    command -v fish &>/dev/null || return
+    command -v fish &>/dev/null || return 0
     fish -c "
         if not functions -q fisher
             curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
@@ -62,25 +62,31 @@ install_fisher_plugins() {
 }
 
 install_tmux_plugins() {
-    command -v tmux &>/dev/null || return
+    command -v tmux &>/dev/null || return 0
     local tpm_dir="$HOME/.tmux/plugins/tpm"
-    [ -d "$tpm_dir" ] || git clone --depth 1 https://github.com/tmux-plugins/tpm "$tpm_dir"
+    [ -d "$tpm_dir" ] || git clone --depth 1 https://github.com/tmux-plugins/tpm "$tpm_dir" || echo "Warning: tpm clone failed, continuing…"
     [ -x "$tpm_dir/bin/install_plugins" ] && "$tpm_dir/bin/install_plugins" || echo "Warning: tmux plugin install failed, continuing…"
 }
 
 set_default_shell() {
-    local fish_path="/opt/homebrew/bin/fish"
-    [ -x "$fish_path" ] || return
-    "$fish_path" -c 'true' || { echo "Warning: fish check failed, not changing login shell"; return; }
-    grep -qxF "$fish_path" /etc/shells || echo "$fish_path" | sudo tee -a /etc/shells >/dev/null
-    [ "$SHELL" = "$fish_path" ] || chsh -s "$fish_path"
+    local fish_path="${1:-/opt/homebrew/bin/fish}"
+    [ -x "$fish_path" ] || return 0
+    "$fish_path" -c 'true' || { echo "Warning: fish check failed, not changing login shell"; return 0; }
+    grep -qxF "$fish_path" /etc/shells || { echo "$fish_path" | sudo tee -a /etc/shells >/dev/null || echo "Warning: could not add fish to /etc/shells, continuing…"; }
+    [ "$SHELL" = "$fish_path" ] || chsh -s "$fish_path" || echo "Warning: chsh to fish failed, continuing…"
 }
 
-install_homebrew
-install_deps
-install_npm_globals
-install_uv_tools
-create_symlinks
-install_fisher_plugins
-install_tmux_plugins
-set_default_shell
+main() {
+    install_homebrew
+    install_deps
+    install_npm_globals
+    install_uv_tools
+    create_symlinks
+    install_fisher_plugins
+    install_tmux_plugins
+    set_default_shell
+}
+
+if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
+    main
+fi
