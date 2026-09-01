@@ -25,6 +25,16 @@ install_deps() {
     [ -f "$brewfile" ] && brew bundle --file="$brewfile" || echo "Warning: some brew packages could not be installed, continuing…"
 }
 
+install_npm_globals() {
+    command -v npm &>/dev/null || return
+    npm install -g @deepseek-ai/dsh || echo "Warning: npm global install failed, continuing…"
+}
+
+install_uv_tools() {
+    command -v uv &>/dev/null || return
+    uv tool install git+https://github.com/github/spec-kit.git || echo "Warning: uv tool install failed, continuing…"
+}
+
 create_symlinks() {
     find "$DOTFILES_ROOT" -name "*.symlink" | while read -r src; do
         topic="$(basename "$(dirname "$src")")"
@@ -53,5 +63,7 @@ install_fisher_plugins() {
 
 install_homebrew
 install_deps
+install_npm_globals
+install_uv_tools
 create_symlinks
 install_fisher_plugins
