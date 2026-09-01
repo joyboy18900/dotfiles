@@ -1,3 +1,7 @@
+# ─── Taps ─────────────
+tap "tw93/tap"
+
+
 # ─── Terminal & CLI Tools (Formulae) ─────────────
 
 # Shell & Prompt
@@ -8,15 +12,15 @@ brew "fisher"
 brew "gh"
 brew "btop"
 brew "fastfetch"
-brew "docker-compose"
 brew "cloudflared"
 brew "k6"
 brew "redis"
+brew "mole"
+brew "qwen-code"
 
 # JavaScript / TypeScript
 brew "node"
 brew "pnpm"
-brew "vite"
 brew "typescript"
 
 # Python
@@ -41,6 +45,7 @@ cask "claude"
 cask "claude-code"
 cask "google-gemini"
 cask "ollama-app"
+cask "chatgpt"
 
 # IDEs & Code Editors
 cask "visual-studio-code"
@@ -48,9 +53,16 @@ cask "zed"
 cask "intellij-idea"
 cask "pycharm-ce"
 
+# Languages & SDKs
+cask "temurin"
+cask "temurin@21"
+cask "flutter"
+
 # Database & API Tools
 cask "dbeaver-community"
 cask "postman"
+cask "bruno"
+cask "db-browser-for-sqlite"
 
 # Terminals & Dev Infrastructure
 cask "wezterm"
@@ -61,9 +73,11 @@ cask "antigravity-cli"
 cask "figma"
 cask "canva"
 cask "capcut"
+cask "open-design"
 
 # Communication & Browsers
 cask "google-chrome"
+cask "firefox"
 cask "discord"
 cask "telegram"
 
@@ -78,6 +92,8 @@ cask "pearcleaner"
 cask "filezilla"
 cask "vlc"
 cask "spotify"
+cask "keka"
+cask "macusb"
 
 # Fonts
 cask "font-jetbrains-mono-nerd-font"
