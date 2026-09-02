@@ -9,7 +9,7 @@
 
 # AI & LLM Tools
 cask "claude"
-cask "claude-code"
+cask "claude-code"   # CLI is already installed by script/bootstrap via npm; this is the standalone app
 cask "google-gemini"
 cask "ollama-app"
 cask "chatgpt"
