@@ -1,7 +1,6 @@
 # ─── Headless core ─────────────
-# Cross-platform CLI baseline. Everything here installs the same way on
-# macOS and Linux (Homebrew formulae). script/bootstrap installs this file.
-# macOS GUI apps live in Brewfile.macos, which bootstrap never reads.
+# Cross-platform CLI, formulae only. script/bootstrap installs this;
+# macOS GUI apps are in Brewfile.macos.
 
 # Shell & Prompt
 brew "fish"
@@ -29,7 +28,7 @@ brew "typescript"
 brew "python@3.13"
 brew "uv"
 
-# Java (keg-only; java/env.fish points JAVA_HOME at openjdk@21)
+# Java
 brew "openjdk@21"
 brew "openjdk"
 

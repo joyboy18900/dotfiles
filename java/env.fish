@@ -1,8 +1,5 @@
-# Homebrew's openjdk is keg-only, so nothing symlinks java onto PATH.
-# Point JAVA_HOME and PATH at the LTS build (openjdk@21).
-#
-# macOS lays the JDK out inside a .jdk bundle; Linux puts it straight at
-# the prefix. Try the bundle path first, fall back to the prefix.
+# Homebrew's openjdk is keg-only. Point JAVA_HOME at the openjdk@21 JDK home:
+# a .jdk bundle on macOS, the prefix itself on Linux.
 if type -q brew
     set -l base (brew --prefix)/opt/openjdk@21
     set -l jdk $base/libexec/openjdk.jdk/Contents/Home
