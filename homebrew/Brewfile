@@ -1,8 +1,4 @@
-# ─── Taps ─────────────
-tap "tw93/tap"
-
-
-# ─── Terminal & CLI Tools (Formulae) ─────────────
+# ─── CLI Tools (Formulae) ─────────────
 
 # Shell & Prompt
 brew "fish"
@@ -37,62 +33,19 @@ brew "vim"
 brew "tmux"
 
 
-# ─── GUI Applications & Fonts (Casks) ─────────────
+# ─── Baseline GUI (Casks) ─────────────
+# Only what a fresh machine needs to start developing: the terminal, its
+# fonts, and browsers. Every other app lives in Brewfile.apps, which
+# script/bootstrap never reads.
 
-# AI & LLM Tools
-cask "claude"
-cask "claude-code"
-cask "google-gemini"
-cask "ollama-app"
-cask "chatgpt"
-
-# IDEs & Code Editors
-cask "visual-studio-code"
-cask "zed"
-cask "intellij-idea"
-cask "pycharm-ce"
-
-# Languages & SDKs
-cask "temurin"
-cask "temurin@21"
-cask "flutter"
-
-# Database & API Tools
-cask "dbeaver-community"
-cask "postman"
-cask "bruno"
-cask "db-browser-for-sqlite"
-
-# Terminals & Dev Infrastructure
+# Terminal
 cask "wezterm"
-cask "docker-desktop"
-cask "antigravity-cli"
-
-# Design, Media & Content Creation
-cask "figma"
-cask "canva"
-cask "capcut"
-cask "open-design"
-
-# Communication & Browsers
-cask "google-chrome"
-cask "firefox"
-cask "discord"
-cask "telegram"
-
-# Productivity & Notes
-cask "notion"
-cask "obsidian"
-
-# System Utilities & Misc
-cask "betterdisplay"
-cask "batfi"
-cask "pearcleaner"
-cask "vlc"
-cask "spotify"
-cask "keka"
-cask "macusb"
 
 # Fonts
 cask "font-jetbrains-mono-nerd-font"
 cask "font-hack-nerd-font"
+
+# Browsers
+cask "google-chrome"
+cask "firefox"
+cask "brave-browser"
