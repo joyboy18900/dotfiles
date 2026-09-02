@@ -1,6 +1,6 @@
 # dotfiles
 
-Personal macOS dotfiles inspired by [holman/dotfiles](https://github.com/holman/dotfiles).
+Personal dotfiles inspired by [holman/dotfiles](https://github.com/holman/dotfiles).
 
 ## Install
 
@@ -10,17 +10,18 @@ cd ~/Workspaces/dotfiles
 script/bootstrap
 ```
 
-`script/bootstrap` installs the baseline only: CLI tools, the terminal
-(wezterm) and its fonts, and the browsers. Enough to start developing.
+`script/bootstrap` installs the **headless core**: the CLI tools in
+`homebrew/Brewfile` plus the Claude Code and antigravity CLIs. This core
+installs the same way on macOS and Linux.
 
-## Optional apps
+## macOS apps
 
-GUI applications (IDEs, Docker, database tools, chat, media) are kept on
-record in `homebrew/Brewfile.apps` but are not installed by bootstrap.
-Install the whole set with:
+GUI apps and macOS-only tools are kept on record in
+`homebrew/Brewfile.macos` and are not installed by bootstrap. Install the
+whole set with:
 
 ```sh
-brew bundle --file=homebrew/Brewfile.apps
+brew bundle --file=homebrew/Brewfile.macos
 ```
 
 or one at a time with `brew install --cask <name>`.
