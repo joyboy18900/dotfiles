@@ -36,7 +36,7 @@ run_if_available() {
 }
 
 install_npm_globals() {
-    run_if_available npm "npm global install" npm install -g @deepseek-ai/dsh
+    run_if_available npm "npm global install" npm install -g @deepseek-ai/dsh @anthropic-ai/claude-code
 }
 
 install_uv_tools() {
