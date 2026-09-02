@@ -56,6 +56,16 @@ for fn in install_npm_globals install_uv_tools install_fisher_plugins install_tm
     assert_survives "$fn survives a missing tool" "$empty_path" "$tmp_home" "$fn"
 done
 
+# --- install_antigravity must no-op (not hit the network) when agy is present ---
+agy_bin="$(mktemp -d)"
+cat >"$agy_bin/agy" <<'EOF'
+#!/bin/bash
+exit 0
+EOF
+chmod +x "$agy_bin/agy"
+tmp_home="$(mktemp -d)"
+assert_survives "install_antigravity no-ops when agy is already installed" "$agy_bin" "$tmp_home" "install_antigravity"
+
 # --- tmux plugin install must not abort when the tpm clone fails ---
 tool_bin="$(mktemp -d)"
 cat >"$tool_bin/tmux" <<'EOF'
