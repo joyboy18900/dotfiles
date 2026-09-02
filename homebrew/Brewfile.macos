@@ -1,0 +1,41 @@
+# ─── macOS apps ─────────────
+# GUI apps and macOS-only tools. NOT installed by script/bootstrap.
+# Install the whole set with:
+#
+#   brew bundle --file=homebrew/Brewfile.macos
+#
+# or one at a time with `brew install --cask <name>`.
+
+
+# Terminal + fonts
+cask "wezterm"
+cask "font-jetbrains-mono-nerd-font"
+cask "font-hack-nerd-font"
+
+# Browsers
+cask "google-chrome"
+cask "firefox"
+cask "brave-browser"
+
+# Editors & IDEs
+cask "visual-studio-code"
+cask "zed"
+cask "intellij-idea"
+cask "pycharm-ce"
+
+# Dev Infrastructure
+cask "docker-desktop"
+
+# Communication
+cask "discord"
+
+# API & Media
+cask "bruno"
+cask "vlc"
+
+# System Utilities & Cleanup
+cask "betterdisplay"
+cask "batfi"
+cask "pearcleaner"
+cask "keka"
+brew "mole"
