@@ -43,6 +43,11 @@ install_uv_tools() {
     run_if_available uv "uv tool install" uv tool install git+https://github.com/github/spec-kit.git
 }
 
+install_antigravity() {
+    command -v agy &>/dev/null && return 0
+    run_if_available curl "antigravity CLI install" bash -c 'curl -fsSL https://antigravity.google/cli/install.sh | bash'
+}
+
 create_symlinks() {
     find "$DOTFILES_ROOT" -name "*.symlink" | while read -r src; do
         topic="$(basename "$(dirname "$src")")"
@@ -88,6 +93,7 @@ main() {
     install_deps
     install_npm_globals
     install_uv_tools
+    install_antigravity
     create_symlinks
     install_fisher_plugins
     install_tmux_plugins

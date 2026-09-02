@@ -1,4 +1,7 @@
-# ─── CLI Tools (Formulae) ─────────────
+# ─── Headless core ─────────────
+# Cross-platform CLI baseline. Everything here installs the same way on
+# macOS and Linux (Homebrew formulae). script/bootstrap installs this file.
+# macOS GUI apps live in Brewfile.macos, which bootstrap never reads.
 
 # Shell & Prompt
 brew "fish"
@@ -11,8 +14,11 @@ brew "fastfetch"
 brew "cloudflared"
 brew "k6"
 brew "redis"
-brew "mole"
 brew "qwen-code"
+
+# Containers
+brew "docker"
+brew "docker-compose"
 
 # JavaScript / TypeScript
 brew "node"
@@ -23,6 +29,10 @@ brew "typescript"
 brew "python@3.13"
 brew "uv"
 
+# Java (keg-only; java/env.fish points JAVA_HOME at openjdk@21)
+brew "openjdk@21"
+brew "openjdk"
+
 # Other Languages & Build Tools
 brew "go"
 brew "rustup"
@@ -31,21 +41,3 @@ brew "maven"
 # Editor & Terminal Environment
 brew "vim"
 brew "tmux"
-
-
-# ─── Baseline GUI (Casks) ─────────────
-# Only what a fresh machine needs to start developing: the terminal, its
-# fonts, and browsers. Every other app lives in Brewfile.apps, which
-# script/bootstrap never reads.
-
-# Terminal
-cask "wezterm"
-
-# Fonts
-cask "font-jetbrains-mono-nerd-font"
-cask "font-hack-nerd-font"
-
-# Browsers
-cask "google-chrome"
-cask "firefox"
-cask "brave-browser"

@@ -1,8 +1,8 @@
 # dotfiles
 
 Personal dotfiles that provision a development machine from a single `script/bootstrap`
-run: linking config files and installing packages. Historically macOS-only; being
-extended to also cover Debian-family Linux (Ubuntu).
+run: linking config files and installing packages. The headless core is
+cross-platform (macOS and Debian-family Linux); GUI apps are macOS-only.
 
 ## Language
 
@@ -24,15 +24,15 @@ tmux-resurrect), Claude Code, and an editor (vim or Zed). On a Linux machine the
 harness is the whole reason to provision it; Linux has no GUI-app layer.
 _Avoid_: toolchain, tooling
 
-**Baseline**:
-What `script/bootstrap` installs and nothing more: the shell, the terminal
-(wezterm) and its fonts, the CLI tools, and the browsers. Enough to start
-developing on a fresh machine. Defined by `homebrew/Brewfile`.
-_Avoid_: core, minimal set
+**Headless core**:
+What `script/bootstrap` installs and nothing more: the CLI tools in
+`homebrew/Brewfile` (Homebrew formulae only) plus the Claude Code and antigravity
+CLIs. It installs the same way on macOS and Linux, with no GUI dependency.
+_Avoid_: baseline, minimal set
 
-**Optional apps**:
-The GUI applications the user keeps a record of but does not want on every
-machine (IDEs, Docker, database tools, chat, media, system utilities). Listed in
-`homebrew/Brewfile.apps`, which `script/bootstrap` never reads; installed on
-demand with `brew bundle --file=homebrew/Brewfile.apps`.
-_Avoid_: extras, bloat
+**macOS apps**:
+GUI apps and macOS-only tools kept on record but not installed by
+`script/bootstrap`: the terminal (wezterm) and fonts, browsers, IDEs, Docker
+Desktop, and the macOS utilities. Listed in `homebrew/Brewfile.macos`; installed
+on demand with `brew bundle --file=homebrew/Brewfile.macos`.
+_Avoid_: optional apps, extras
